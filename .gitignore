@@ -1,0 +1,6 @@
+*.pyc
+000*.py
+
+# ignore frp files
+frpc
+start_frp.sh
