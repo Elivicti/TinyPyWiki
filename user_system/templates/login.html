@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block intro %}
+
+
+{% endblock intro %}
+
+{% block page_title %}Log in{% endblock page_title %}
+{% block title %}Log in{% endblock title %}
+{% comment %} {% block intro %}{% endblock intro %} {% endcomment %}
+{% comment %} {% block contents %}{% endblock contents %} {% endcomment %}
+{% block article %}
+{% load static %}
+
+
+<link rel="stylesheet" href={% static "style/django-form.css" %}>
+{% comment %} <link rel="stylesheet" href={% static "css/bootstrap.min.css" %}> {% endcomment %}
+<div id="content" class="django-form-1">
+	<div id="content-main" class="django-form-3">
+		<form method="post" id="user_form" novalidate="" class="django-form-4">
+			<div class="django-form-7">
+				{{ correct_error_tooltip }}
+				<fieldset class="django-form-9">
+					{% for field in form  %}
+					<div class="django-form-10">
+						<ul class="django-form-11">
+							<li class="django-form-12">
+								{{ field.errors.0 }}
+							</li>
+						</ul>
+						<div class="django-form-13">
+							<div class="django-form-14">
+								<label for="id_username" class="django-form-15">{{ field.label }}:</label>
+								{{ field }}
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+
+				</fieldset>
+
+				<div class="django-form-39">
+					<input type="submit" value="Log in" name="_save" class="django-form-submit" />
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<br class="django-form-43" />
+</div>
+
+
+{% endblock article %}
