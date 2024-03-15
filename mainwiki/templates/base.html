@@ -1,0 +1,133 @@
+<!doctype html>
+<html class="no-js" lang="zh-cn">
+	{% load static %}
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Wiki: {% block page_title %}{% endblock page_title %}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="canonical" href="http://html5-templates.com/" />
+        <link rel="apple-touch-icon" href={% static "style/img/apple-touch-icon.png" %}>
+        <!-- Place favicon.ico in the root directory -->
+        <link rel="stylesheet" href={% static "style/wiki.css" %}>
+        <script src={% static "js/modernizr-2.8.3.min.js" %}></script>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+		<div class="wrapAll clearfix">
+			<div class="sidebar">
+				<div class="logo">
+					<img src={% static "style/img/logo.png" %} alt="logo">
+					<!-- <a href="/"></a> -->
+				</div>
+				<div class="navigation">
+					<ul>
+						<li><a href={% url 'not_found' %}>Main page</a></li>
+						<li><a href="#">Contents</a></li>
+						<li><a href="#">Featured content</a></li>
+					</ul>
+					<h3>Interaction</h3>
+					<ul>
+						<li><a href="#">Help</a></li>
+						<li><a href="#">About</a></li>
+						<li><a href="#">Portal</a></li>
+					</ul>
+					<h3>Interaction</h3>
+					<ul>
+						<li><a href="#">Help</a></li>
+						<li><a href="#">About</a></li>
+						<li><a href="#">Portal</a></li>
+					</ul>
+				</div>
+
+
+			</div>
+			<div class="mainsection">
+				<div class="headerLinks">
+					{% if user.is_authenticated %}
+					<span class="user">{{ user.username }}</span>
+					<a href="#">Log out</a>
+					{% else %}
+					<span class="user">Not logged in</span>
+					<!-- <a href="#">Talk</a> -->
+					<a href={% url "user_system:register" %}>Create account</a>
+					<a href={% url "user_system:user_login" %}>Log in</a>
+					<!-- <a href="#" class="login">Log in</a> -->
+					{% endif %}
+				</div>
+				<div class="tabs clearfix">
+					<div class="tabsLeft">
+						<ul>
+							<li><a href="#" class="active">Article</a></li>
+							<!-- <li><a href="#">Talk</a></li> -->
+						</ul>
+					</div>
+					<div id="simpleSearch">
+						<input type="text" name="searchInput" id="searchInput" placeholder="Search Wikipedia" size="12" />
+						<div id="submitSearch"></div>
+					</div>
+					<div class="tabsRight">
+						<ul>
+							<li><a href="#" class="active">Read</a></li>
+							<!-- <li><a href="#">View source</a></li> -->
+							<li><a href="#">View history</a></li>
+						</ul>
+					</div>
+
+				</div>
+				<div class="article">
+					<h1>{% block title %}{% endblock title %}</h1>
+					{% block intro %}{% endblock intro %}
+					{% block contents %}{% endblock contents %}
+					{% block article %}{% endblock article %}
+					
+					<h2 id="External Links">External Links</h2>
+					<div class="lavenderBox">
+						<div class="header">Panel title</div>
+						<div class="subtitle linklist">
+							<a href="#">Panel subtitle link 1</a>
+							<a href="#">Panel subtitle link 1</a>
+							<a href="#">Panel subtitle link 1</a>
+						</div>
+						<div class="linklist">
+							<a href="#">link 1</a>
+							<a href="#">link 2</a>
+							<a href="#">link 3</a>
+							<a href="#">link 4</a>
+							<a href="#">link 5</a>
+							<a href="#">link 6</a>
+						</div>
+						<div class="subtitle">Subtitle</div>
+					</div>
+
+					<div class="categories">
+						<a href="#">Category 1</a>
+						<a href="#">Category 2</a>
+						<a href="#">Category 3</a>
+					</div>
+
+				</div>
+				<div class="pagefooter">
+					This page was last edited on {% block last_edit_time %}{% endblock last_edit_time %} | Template by <a href="http://html5-templates.com/" target="_blank" rel="nofollow">HTML5 Templates</a> <!-- Please leave this link unchanged -->
+					<div class="footerlinks">
+						<a href="#">Github</a>
+						<a href="#">Licence</a>
+						<a href="#">Developers</a>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+
+        <script src={% static "js/jquery-1.12.0.min.js" %}></script>
+        {% comment %} <script>window.jQuery || document.write('<script src="{% static 'js/jquery-1.12.0.min.js' %}"><\/script>')</script> {% endcomment %}
+        <script src="/static/script.js"></script>
+
+
+    </body>
+</html>
