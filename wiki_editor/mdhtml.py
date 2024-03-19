@@ -28,11 +28,12 @@ def parse_markdown(file: TextIO, features: str = "html.parser"):
 	div_contentsHeader.string = "Content"
 	div_contentsPanel.append(div_contentsHeader)
 	def make_contents_panel(elem: Tag, root: Tag, index: int = 2, root_id: str = ""):
+		parent_elem = elem
 		header_tag = f"h{index}"
 		id = 1
 		while True:
 			elem = elem.find_next(header_tag)
-			if elem is None:
+			if elem is None or elem.find_previous("h%d" % (index - 1)) is not parent_elem:
 				break
 			li = contents_panel.new_tag("li")
 			span = contents_panel.new_tag("span")
@@ -43,7 +44,8 @@ def parse_markdown(file: TextIO, features: str = "html.parser"):
 			li.append(a)
 			elem.attrs["id"] = elem.text
 
-			if elem.find_next("h%d" % (index + 1)) is not None:
+			sub_h_tag = elem.find_next("h%d" % (index + 1))
+			if sub_h_tag is not None and sub_h_tag.find_previous(header_tag) is elem:
 				sub_ul = make_contents_panel(
 					elem, contents_panel.new_tag("ul", attrs={"class" : "contents-ul"}),
 					index + 1, span.string + "."
@@ -55,6 +57,7 @@ def parse_markdown(file: TextIO, features: str = "html.parser"):
 	ul = make_contents_panel(title, contents_panel.new_tag("ul", attrs={"class" : "contents-ul"}))
 	div_contentsPanel.append(ul)
 	contents_panel.append(div_contentsPanel)
+	# html.find("h2").insert_before(contents_panel)
 
 	# split html into title, intro, contents and article part
 	wiki = WikiArticle(title=title.string)
