@@ -23,6 +23,7 @@ urlpatterns = [
     path('', mainwiki.views.home, name='home'),
 	path("404/", mainwiki.views.not_found, name="not_found"),
 	path("test/", mainwiki.views.test_page, name="test"),
+	path("<str:article_id>/", mainwiki.views.get_article, name="article"),
 	path("user/", include("user_system.urls"))
 ]
 
