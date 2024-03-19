@@ -292,7 +292,7 @@ p.siteSub {
 body {
 	background: url(img/body-top.png) repeat-x top left #f6f6f6;
 }
-ul {
+.contents-ul {
 	list-style-type: none;
 	list-style-image: none;
 	margin: 0;
