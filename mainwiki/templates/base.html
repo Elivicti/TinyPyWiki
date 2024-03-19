@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Wiki: {% block page_title %}{% endblock page_title %}</title>
+        <title>Wiki: {% block page_title %}{{ var_title }}{% endblock page_title %}</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="canonical" href="http://html5-templates.com/" />
@@ -50,12 +50,12 @@
 				<div class="headerLinks">
 					{% if user.is_authenticated %}
 					<span class="user">{{ user.username }}</span>
-					<a href="#">Log out</a>
+					<a href={% url "user_system:user_logout" %}>Log out</a>
 					{% else %}
 					<span class="user">Not logged in</span>
 					<!-- <a href="#">Talk</a> -->
-					<a href={% url "user_system:register" %}>Create account</a>
-					<a href={% url "user_system:user_login" %}>Log in</a>
+					<a href="{% url "user_system:register" %}?prev={{ request.path|urlencode }}">Create account</a>
+					<a href="{% url "user_system:user_login" %}?prev={{ request.path|urlencode }}">Log in</a>
 					<!-- <a href="#" class="login">Log in</a> -->
 					{% endif %}
 				</div>
@@ -80,10 +80,10 @@
 
 				</div>
 				<div class="article">
-					<h1>{% block title %}{% endblock title %}</h1>
-					{% block intro %}{% endblock intro %}
-					{% block contents %}{% endblock contents %}
-					{% block article %}{% endblock article %}
+					<h1>{% block title %}{{ var_title }}{% endblock title %}</h1>
+					{% block intro %}{{ var_intro }}{% endblock intro %}
+					{% block contents %}{{ var_contents }}{% endblock contents %}
+					{% block article %}{{ var_article }}{% endblock article %}
 					
 					<h2 id="External Links">External Links</h2>
 					<div class="lavenderBox">
