@@ -1,5 +1,5 @@
 from typing import Any, Mapping
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, UserManager
 from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth.password_validation import validate_password, password_validators_help_text_html
@@ -22,19 +22,19 @@ class WikiUserLogin(forms.ModelForm):
 				field.widget = forms.PasswordInput()
 			field.widget.attrs = {"class" : "django-form-lineinput"}
 
-	def check(self):
+	def check(self, user_obj: UserManager[User]):
 		self.full_clean()
 		try:
 			for field in self.Meta.fields:
 				if not field in self.cleaned_data.keys():
 					raise FieldValidationError(field, "This field is required.")
-			if not User.objects.filter(email="email").exists():
+			if not user_obj.exists():
 				raise FieldValidationError("email", "Unrecognized email address.")
 			pass
 		except FieldValidationError as err:
 			self.add_error(err.field, err)
 		
-		return  self.is_valid()
+		return self.is_valid()
 
 
 class WikiUserRegister(forms.ModelForm):
