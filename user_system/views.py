@@ -60,3 +60,4 @@ def register(request):
 		"form" : form,
 		"correct_error_tooltip": SafeText("<p class=\"django-form-8\">Please correct the errors below.</p>")
 	})	# contains error message
+

@@ -132,7 +132,14 @@ legend {
 	padding: 0;
 }
 textarea {
-	overflow: auto;
+	/* overflow: auto; */
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
+	resize: vertical;
+	border: 1px solid red;
+	border-radius: 5px;
+	font-family: Arial, sans-serif;
 }
 optgroup {
 	font-weight: bold;
@@ -174,8 +181,20 @@ fieldset {
 	padding: 0;
 }
 textarea {
+	/* resize: vertical; */
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
 	resize: vertical;
+	border: 1px solid rgb(19, 18, 18);
+	border-radius: 5px;
+	font-family: Arial, sans-serif;
 }
+
+
+
+
+
 .browserupgrade {
 	margin: 0.2em 0;
 	background: #ccc;
@@ -281,6 +300,9 @@ h1, h2, h3, h4, h5, h6 {
 .article h3 {
 	font-weight: bold;
 	font-size: 1.2em;
+}
+.article ul {
+	background-color: #f3f5f7;
 }
 .article p.roleNote {
 	padding: 1em 0 0 1.6em;

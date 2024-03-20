@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block page_title %}Wikipedia Talk{% endblock page_title %}
+{% block title %}Talk
+
+
+{% block talk %}
+{% comment %} <ul class="ultalk"></ul> {% endcomment %}
+<table>
+    {% for message in messages %}
+        <tr>
+            <td>{{ message.username }}</td>
+            <td>{{ message.content }}</td>
+            <td>{{ message.pub_time }}</td>
+        </tr>
+    {% endfor %}
+    </tabel>
+{% endblock talk %}
+
+
+
+{% endblock title %}
+
+{% block intro %}
+    
+    <p class="bth">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&emsp;&emsp;&emsp;&emsp;提交文件<input type="file"></p>
+    
+    <textarea placeholder="请留言" name="pwd" id="textarea" cols="200" rows="20"></textarea>
+    <br>
+    
+{% endblock intro %}
+
+
+
+{% block article %}
+
+
+<button class="sub">发布</button>
+{% endblock article %}
+
+{% block last_edit_time %}2024.03.15{% endblock last_edit_time %}
+{% block 弹窗 %}{% endblock 弹窗 %}

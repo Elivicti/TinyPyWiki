@@ -15,11 +15,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
+import wikiTalk.views
+from django.contrib import admin
 
-import mainwiki.views
-
-app_name = "mainwiki"
+app_name = "wikiTalk"
 
 urlpatterns = [
-	path("", mainwiki.views.not_found, name="not_found"),
+    path('admin/', admin.site.urls),
+    path("wikiTalk/", wikiTalk.views.wikiTalk, name="wikiTalk"),
+    path('addMessage/', wikiTalk.views.addMessage, name='add_message'),
 ]
+

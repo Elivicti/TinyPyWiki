@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 import mainwiki.views
+import wikiTalk.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,7 +25,8 @@ urlpatterns = [
 	path("404/", mainwiki.views.not_found, name="not_found"),
 	path("test/", mainwiki.views.test_page, name="test"),
 	path("<str:article_id>/", mainwiki.views.get_article, name="article"),
-	path("user/", include("user_system.urls"))
+	path("user/", include("user_system.urls")),
+    path("Talk/", include("wikiTalk.urls")),
 ]
 
 # urlpatterns += mainwiki.views.getUrls()
