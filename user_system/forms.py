@@ -62,12 +62,6 @@ class WikiUserRegister(forms.ModelForm):
 				field.widget = forms.PasswordInput()
 			field.widget.attrs = {"class" : "django-form-lineinput"}
 
-	def debug_func(self):
-		self.confirm_pwd.help_text
-		# a = User()
-		# a.username_validator
-		pass
-
 	def check(self) -> bool:
 		self.full_clean()
 		pwd_confirm = True
