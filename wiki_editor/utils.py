@@ -1,6 +1,6 @@
 from markdown import markdown
 from bs4 import BeautifulSoup, Tag
-from typing import TextIO
+# from django.core.exceptions import ValidationError
 
 class WikiArticle:
 	def __init__(self, title: str = "", intro: str = "", contents_panel: str = "", article: str = "") -> None:
@@ -12,8 +12,15 @@ class WikiArticle:
 	def __str__(self) -> str:
 		return self.title + self.intro + self.contents_panel + self.article
 
-def parse_markdown(file: TextIO, features: str = "html.parser"):
-	html = BeautifulSoup(markdown(file.read()), features=features)
+def get_article_title(markdown_content: str, features: str = "html.parser") -> str:
+	html = BeautifulSoup(markdown(markdown_content), features=features)
+	title = html.find("h1")
+	if title:
+		return title.get_text()
+	raise ValueError("This article does not have a title.")
+
+def parse_markdown(markdown_content: str, features: str = "html.parser"):
+	html = BeautifulSoup(markdown(markdown_content), features=features)
 	title = html.find("h1")
 	# downgrade other h1 to h2
 	for h1 in title.find_all_next("h1"):
