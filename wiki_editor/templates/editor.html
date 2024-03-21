@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+
+{% block article %}
+<link rel="stylesheet" href={% static "style/editor.css" %}>
+<link rel="stylesheet" href={% static "style/django-form.css" %}>
+<link rel="stylesheet" href={% static "css/simplemde.min.css" %}>
+<script src={% static "js/simplemde.min.js" %}></script>
+ 
+<div style="padding: 20px 20px; ">
+	<form method="post" id="editor_form" novalidate>
+		<div style="display: flex; align-items: flex-start | stretch">
+			<fieldset style="flex-shrink: 0; flex-grow: 2">
+				{% csrf_token %}
+				<div >
+					{{ form.content }}
+				</div>
+			</fieldset>
+			<div class="md-tips" style="flex-shrink: 1; min-width: 22%; max-width: 22%">
+				<div class="md-tips-section">
+					<p class="md-tips-title">Heading Guide</p>
+					<p>The first <code>h1</code> heading will be considered the title of the article.</p>
+					<p>You should <strong>only</strong> use one <code>h1</code> heading in the entire article. Any other <code>h1</code> headings will be converted to <code>h2</code>.</p>
+				</div>
+				<div class="md-tips-section">
+					<p class="md-tips-title">Contents Panel</p>
+					<p>Contents Panel are auto-generated according to the article's headings.</p>
+					<p>Using same title for different headings is not recommanded. Not only will it make the article's structure unclear, but alse break jump function in Contents Panel.</p>
+				</div>
+			</div>
+		</div>
+		<div>
+			{{ form.editor.as_hidden }}
+			{{ form.article_id.as_hidden }}
+		</div>
+		
+		<div class="submit-container">
+			<div class="submit-box" style="padding: 20px 20px;">
+				{{ form.commit_msg }}
+				<input type="submit" value="Submit" name="_save" class="django-form-submit" />
+			</div>
+			<div style="padding: 0 2em; margin-top: -1em">
+				<ul class="error-list">
+					{% for error in errors %}
+					<li class="error-list">{{ error }}</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		
+	</form>
+	
+</div>
+<script>
+  var simplemde = new SimpleMDE({
+	element: document.getElementById("id_content"),
+    tabSize: 4,
+    toolbar: ["bold", "italic", "strikethrough", "heading",
+		 "|", "code", "quote", "unordered-list", "ordered-list",
+		 "|", "link", {
+			name: "image",
+			action: function add_image(editor) {
+				alert("alert")
+			},
+			className: "fa fa-picture-o",
+			title: "Insert Image"
+		 },
+		 "|", "preview",
+		 "|", "guide"],
+	placeholder: "Type here...",
+	toolbarTips: true,
+  });
+  {% autoescape off %}
+  simplemde.value("{{ article_content | escapejs }}");
+  {% endautoescape %}
+</script>
+
+
+{% endblock article %}
+
+

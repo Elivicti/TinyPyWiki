@@ -20,5 +20,12 @@ from . import views
 app_name = "wiki_editor"
 
 urlpatterns = [
-	# path("", mainwiki.views.not_found, name="not_found")
+	path("<str:article_title>/",
+		views.get_article, name="article"),
+	path("<str:article_title>/edit/",
+		views.edit_article, name="edit_ariticle"),
+	path("<str:article_title>/history/",
+		views.article_history, name="article_history"),
+	path("<str:article_title>/history/<int:edit_id>/",
+		views.view_article_history, name="view_article_history"),
 ]
