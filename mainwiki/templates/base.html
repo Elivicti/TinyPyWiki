@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Wiki: {% block page_title %}{{ var_title }}{% endblock page_title %}</title>
+        <title>{% block page_title %}{{ var_title }}{% endblock page_title %}</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="canonical" href="http://html5-templates.com/" />
@@ -27,20 +27,11 @@
 				<div class="navigation">
 					<ul class="contents-ul">
 						<li><a href={% url 'not_found' %}>Main page</a></li>
-						<li><a href="#">Contents</a></li>
-						<li><a href="#">Featured content</a></li>
 					</ul>
 					<h3>Interaction</h3>
 					<ul class="contents-ul">
 						<li><a href="#">Help</a></li>
 						<li><a href="#">About</a></li>
-						<li><a href="#">Portal</a></li>
-					</ul>
-					<h3>Interaction</h3>
-					<ul class="contents-ul">
-						<li><a href="#">Help</a></li>
-						<li><a href="#">About</a></li>
-						<li><a href="#">Portal</a></li>
 					</ul>
 				</div>
 
@@ -54,8 +45,8 @@
 					{% else %}
 					<span class="user">Not logged in</span>
 					<!-- <a href="#">Talk</a> -->
-					<a href="{% url "user_system:register" %}?prev={{ request.path|urlencode }}">Create account</a>
-					<a href="{% url "user_system:user_login" %}?prev={{ request.path|urlencode }}">Log in</a>
+					<a href="{% url "user_system:register" %}?next={{ request.path|urlencode }}">Create account</a>
+					<a href="{% url "user_system:user_login" %}?next={{ request.path|urlencode }}">Log in</a>
 					<!-- <a href="#" class="login">Log in</a> -->
 					{% endif %}
 				</div>
@@ -72,9 +63,9 @@
 					</div>
 					<div class="tabsRight">
 						<ul>
-							<li><a href="#" class="active">Read</a></li>
-							<!-- <li><a href="#">View source</a></li> -->
-							<li><a href="#">View history</a></li>
+							{% for tab in tab_sections %}
+							<li><a href="{{ tab.href }}" id="{{ tab.id }}" class="{{ tab.cls }}">{{ tab.title }}</a></li>
+							{% endfor %}
 						</ul>
 					</div>
 
@@ -112,11 +103,11 @@
 
 				</div>
 				<div class="pagefooter">
-					This page was last edited on {% block last_edit_time %}{% endblock last_edit_time %} | Template by <a href="http://html5-templates.com/" target="_blank" rel="nofollow">HTML5 Templates</a> <!-- Please leave this link unchanged -->
+					This page was last edited on {% block last_edit_time %}{{ var_last_edit_time }}{% endblock last_edit_time %} | Template by <a href="http://html5-templates.com/" target="_blank" rel="nofollow">HTML5 Templates</a> <!-- Please leave this link unchanged -->
 					<div class="footerlinks">
-						<a href="#">Github</a>
-						<a href="#">Licence</a>
-						<a href="#">Developers</a>
+						<a href="https://github.com/Elivicti/TinyPyWiki">Github</a>
+						<a href="https://github.com/Elivicti/TinyPyWiki">Licence</a>
+						<a href="https://github.com/Elivicti/TinyPyWiki/graphs/contributors">Developers</a>
 					</div>
 				</div>
 
@@ -127,7 +118,5 @@
         <script src={% static "js/jquery-1.12.0.min.js" %}></script>
         {% comment %} <script>window.jQuery || document.write('<script src="{% static 'js/jquery-1.12.0.min.js' %}"><\/script>')</script> {% endcomment %}
         <script src="/static/script.js"></script>
-
-
     </body>
 </html>
