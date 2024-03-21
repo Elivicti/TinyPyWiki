@@ -17,13 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 import mainwiki.views
+import wiki_editor.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', mainwiki.views.home, name='home'),
 	path("404/", mainwiki.views.not_found, name="not_found"),
 	path("test/", mainwiki.views.test_page, name="test"),
-	path("<str:article_id>/", mainwiki.views.get_article, name="article"),
+	path("a/", include("wiki_editor.urls")),
 	path("user/", include("user_system.urls"))
 ]
 
