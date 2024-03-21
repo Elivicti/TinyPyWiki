@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+<style>
+    .#ccccff {
+      color:#ccccff;
+    }
+  </style>
+{% block title %}Talk{% endblock title %}
+{% block intro %}
+{% for msg in messages %}
+<h2><span style="color:#ccccff">User:</span><strong>{{ msg.user }}</strong>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ccccff">Time:</span><strong>{{ msg.edit_time }}</strong></h2>
+<p ><b>{{ msg.message }}</b></p>
+{% endfor %}
+{% endblock intro %}
+
+{% block contents %}{% endblock contents %}
+
+{% block article %}
+<form method=POST >
+    {% csrf_token %}
+  <h1>  {{form.user.as_hidden }}
+  
+    {{form.message}}
+    <button class="sub">Submit Now!</button>
+  </h1>
+</form>
+{% endblock article %}
+
+
+
