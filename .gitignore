@@ -1,5 +1,5 @@
 *.pyc
-000*.py
+00*.py
 
 # ignore frp files
 frpc
