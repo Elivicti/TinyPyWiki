@@ -17,7 +17,8 @@
 <div id="content" class="django-form-1">
 	<div id="content-main" class="django-form-3">
 		<form method="post" id="user_form" novalidate="" class="django-form-4">
-			<input type="hidden" name="prev" value="{{ request.GET.prev }}">
+			{% csrf_token %}
+			<input type="hidden" name="next" value="{{ request.GET.next }}">
 			<div class="django-form-7">
 				{{ correct_error_tooltip }}
 				<fieldset class="django-form-9">
