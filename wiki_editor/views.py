@@ -3,7 +3,7 @@ from django.utils.safestring import SafeText, mark_safe
 from django.contrib.auth.decorators import login_required
 
 from .models import WikiArticle, WikiArticleEditLog
-from .utils import parse_markdown
+from .utils import parse_markdown, find_in_markdown, make_formatted_time
 from .forms import WikiEditorForm
 from mainwiki.utils import get_section_tab
 
@@ -28,7 +28,7 @@ def get_article(request, article_title: str):
             "var_intro": SafeText(article.intro),
             "var_contents": SafeText(article.contents_panel),
             "var_article": SafeText(article.article),
-            "var_last_edit_time": articles[0].edit_time.strftime("%Y-%m-%d, at %H:%M:%S (%Z)"),
+            "var_last_edit_time": make_formatted_time(articles[0].edit_time),
             "tab_sections": get_section_tab(request, article_title, "read"),
         })
 
@@ -103,6 +103,41 @@ def view_article_history(request, article_title: str, edit_id: int):
             "var_intro": SafeText(article.intro),
             "var_contents": SafeText(article.contents_panel),
             "var_article": SafeText(article.article),
-            "var_last_edit_time": articles[0].edit_time.strftime("%Y-%m-%d, at %H:%M:%S (%Z)"),
+            "var_last_edit_time": make_formatted_time(articles[0].edit_time),
             "tab_sections": get_section_tab(request, article_title, "read"),
         })
+
+def search_article(request):
+    key_word = request.GET.get("param", "")
+    if len(key_word) < 3:
+        return render(request, "search.html", {
+            "correct_error_tooltip": SafeText("<p class=\"django-form-8\">Please enter more than 2 characters.</p>")
+        })
+
+    search: dict[int, WikiArticleEditLog] = {}
+    
+    for obj in WikiArticleEditLog.objects.filter().order_by("-edit_time"):
+        if obj.article_id not in search.keys():
+            search[obj.article_id.id] = obj
+    
+    class SearchResult:
+        def __init__(self, title: str, intro: str) -> None:
+            self.title = title
+            self.intro = intro
+
+    results: list[SearchResult] = []
+    for article_id, log in search.items():
+        article = WikiArticle.objects.filter(id=article_id)[0]
+        print(article.title, log.edit_time)
+        match = find_in_markdown(key_word, log.content)
+        if match:
+            results.append(SearchResult(article.title, match))
+    
+    print(results)
+    return render(request, "search.html", {
+        "var_title": "Search",
+        
+        "var_last_edit_time": make_formatted_time(),
+        "tab_name_alt": "Search",
+        "results": results
+    })

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block intro %}
+<link rel="stylesheet" href={% static "style/django-form.css" %}>
+{% endblock intro %}
+
+
+{% block article %}
+<div>
+{{ correct_error_tooltip }}
+</div>
+
+{% if results %}
+<p>Results found:</p>
+	{% for result in results %}
+	<h2><a href="/a/{{ result.title }}">{{ result.title }}</a></h2>
+	<p>{{ result.intro }}</p>
+	<p style="height: 0.5em;"></p>
+
+	{% endfor %}
+
+{% else %}
+<p>No results found.</p>
+
+{% endif %}
+
+
+
+{% endblock article %}
+
+

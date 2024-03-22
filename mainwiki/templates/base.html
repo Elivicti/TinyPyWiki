@@ -26,7 +26,8 @@
 				</div>
 				<div class="navigation">
 					<ul class="contents-ul">
-						<li><a href={% url 'not_found' %}>Main page</a></li>
+						<li><a href={% url 'home' %}>Main page</a></li>
+						<li><a href={% url 'wiki_talk:talk' %}>Talk</a></li>
 					</ul>
 					<h3>Interaction</h3>
 					<ul class="contents-ul">
@@ -53,13 +54,22 @@
 				<div class="tabs clearfix">
 					<div class="tabsLeft">
 						<ul>
-							<li><a href="#" class="active">Article</a></li>
+							<li>
+								<a href="#" class="active">
+								{% if tab_name_alt %}
+									{{ tab_name_alt }}
+								{% else %}
+									Article
+								{% endif %}
+								</a>
+							</li>
 							<!-- <li><a href="#">Talk</a></li> -->
 						</ul>
 					</div>
 					<div id="simpleSearch">
 						<input type="text" name="searchInput" id="searchInput" placeholder="Search Wikipedia" size="12" />
-						<div id="submitSearch"></div>
+						<button id="submitSearch" onClick="on_search"></button>
+						{% comment %} <div id="submitSearch"></div> {% endcomment %}
 					</div>
 					<div class="tabsRight">
 						<ul>
@@ -76,6 +86,8 @@
 					{% block contents %}{{ var_contents }}{% endblock contents %}
 					{% block article %}{{ var_article }}{% endblock article %}
 					
+					{% if hide_external_links %}
+					{% else %}
 					<h2 id="External Links">External Links</h2>
 					<div class="lavenderBox">
 						<div class="header">Panel title</div>
@@ -100,6 +112,7 @@
 						<a href="#">Category 2</a>
 						<a href="#">Category 3</a>
 					</div>
+					{% endif %}
 
 				</div>
 				<div class="pagefooter">

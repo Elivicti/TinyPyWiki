@@ -39,6 +39,10 @@ $(document).ready(function(){
 			$(this).parent().removeClass('minimizedPanel');
 		});
     });
+	document.getElementById('submitSearch').addEventListener('click', function() {
+		var input = $("#searchInput").val()
+		location.href = "/search/?param=" + input;
+	});
 });
 
 
