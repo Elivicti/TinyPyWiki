@@ -63,8 +63,7 @@ def edit_article(request, article_title: str):
         article.save()
         editor_form.save()
         return redirect("/a/%s/" % article.title)
-        
-    print(editor_form.errors.items())
+    
     errors = []
     for field, error in editor_form.errors.items():
         if field == "commit_msg":
@@ -131,12 +130,10 @@ def search_article(request):
     results: list[SearchResult] = []
     for article_id, log in search.items():
         article = WikiArticle.objects.filter(id=article_id)[0]
-        print(article.title, log.edit_time)
         match = find_in_markdown(key_word, log.content)
         if match:
             results.append(SearchResult(article.title, match))
     
-    print(results)
     return render(request, "search.html", {
         "var_title": "Search",
         
