@@ -53,6 +53,7 @@ def edit_article(request, article_title: str):
             "var_title": "Edit: %s" % article_title,
             "tab_sections": get_section_tab(request, article_title, "edit"),
             "article_content": article_content,
+            "var_last_edit_time": make_formatted_time(articles[0].edit_time),
             "form" : editor_form
         })
 
@@ -76,6 +77,7 @@ def edit_article(request, article_title: str):
         "tab_sections": get_section_tab(request, article_title, "edit"),
         "article_content": request.POST["content"],
         "form" : WikiEditorForm(initial={"editor": request.user, "article_id": article.id}),
+		"var_last_edit_time": make_formatted_time(articles[0].edit_time),
         "errors": errors
     })
 
@@ -90,6 +92,7 @@ def article_history(request, article_title: str):
     return render(request, "history.html", {
         "var_title": "History: " + article_title,
         "tab_sections": get_section_tab(request, article_title, "history"),
+		"var_last_edit_time": make_formatted_time(article_log[0].edit_time),
         "logs": article_log,
     })
 
