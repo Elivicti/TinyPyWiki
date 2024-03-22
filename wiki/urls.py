@@ -25,7 +25,9 @@ urlpatterns = [
 	path("404/", mainwiki.views.not_found, name="not_found"),
 	path("test/", mainwiki.views.test_page, name="test"),
 	path("a/", include("wiki_editor.urls")),
-	path("user/", include("user_system.urls"))
+	path("user/", include("user_system.urls")),
+	path("talk/", include("wiki_talk.urls")),
+	path("search/", wiki_editor.views.search_article, name="search")
 ]
 
 # urlpatterns += mainwiki.views.getUrls()

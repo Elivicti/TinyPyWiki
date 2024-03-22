@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 	'mainwiki',
 	'wiki_editor',
+	'wiki_talk',
 	'user_system',
 	'sslserver',
 ]
