@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block page_title %}Main page{% endblock page_title %}
+{% block title %}Wikipedia{% endblock title %}
+
+{% block intro %}
+<link rel="stylesheet" href={% static "style/mainpage.css" %}>
+
+<div>
+	<div class="mainpageTop">
+		<div class="articleRight">
+			<div class="articleRightInner">
+				<img src={% static "style/img/logo.png" %} alt="logo" />
+			</div>
+		</div>
+		<ul>
+			<p class="siteSub">From Wikipedia, the free encyclopedia.</p>
+			<p class="roleNote">This article is about Wikipedia. Wikipedia, headquartered in the United States,
+				is a multilingual encyclopedia style collaborative project based on Wikipedia technology.
+				It is an online encyclopedia written in multiple languages.
+				Wikipedia is operated by the non-profit organization Wikimedia Foundation,
+				which accepts donations. The characteristics are free content and free editing.
+				It is the largest and most popular reference book on the global internet,
+				ranking among the top ten most popular websites in the world.
+				Wikipedia is a hybrid term derived from the core technology of a website, Wiki,
+				and the English word for encyclopedia.</p>
+		</ul>
+	</div>
+{% endblock intro %}
+
+
+{% block contents %}
+
+<p style="height:1em;"></p>
+<div class="contentsPanel">
+	<div class="contentsHeader">Contents</div>
+	<ul class="contents-ul">
+		<li><span>1</span><a href="#about-this-website">About this website</a></li>
+		<li><span>2</span><a href="#deployment">Deployment</a></li>
+		<li><span>3</span><a href="#license">License</a></li>
+	</ul>
+</div>
+
+{% endblock contents %}
+
+
+{% block article %}
+
+<h2 id='about-this-website'>About this website</h2>
+<p>This website is homework for Web Integrated Design Practice Course, whose server side uses
+	<code>Python 3.10.13</code> and <code>Django 5.0.3</code>.</p>
+<p>Source code of this website is served on <a
+		href='https://github.com/Elivicti/TinyPyWiki'>Github</a>.</p>
+		
+<p style="height:1em;"></p>
+
+<h2 id='deployment'>Deployment</h3>
+<p>To deploy this website yourself, you need to install <code>Python</code> at
+	<code>3.10</code> or above, and install <code>Django</code> using
+	<code>pip</code>.</p>
+<p>In addition, <code>Django</code>&#39;s <code>sslserver</code> app is also
+		needed if you want to run server on <code>https</code>. If not, remember to delete
+	<code>sslserver</code> in <code>INSTALLED_APP</code> in
+	<code>wiki/settings.py</code>.</p>
+<p>Before launching the server for the first time, you should execute
+	<code>makemigrations</code> and <code>migrate</code> in order to make database
+		function properly.</p>
+<p style="height:1em;"></p>
+
+<h2 id='license'>License</h3>
+<p>This project is published under <a
+		href='https://github.com/Elivicti/TinyPyWiki/blob/master/LICENSE'>LGPL-v3</a>.
+</p>
+
+<p style="height:8em;"></p>
+
+{% endblock article %}
+
+{% block last_edit_time %}2024.03.15{% endblock last_edit_time %}

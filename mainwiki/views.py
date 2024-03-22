@@ -3,7 +3,7 @@ from django.urls import path
 
 # 创建视图处理函数
 def home(request):
-    return render(request, 'index.html')
+    return render(request, 'mainpage.html')
 
 def not_found(request):
     return render(request, "404.html")
