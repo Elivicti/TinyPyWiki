@@ -1,5 +1,6 @@
 *.pyc
 00*.py
+*.sqlite3
 
 # ignore frp files
 frpc
