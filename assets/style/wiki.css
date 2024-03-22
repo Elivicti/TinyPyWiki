@@ -437,7 +437,7 @@ div.articleRightInner {
 	border: none;
 	vertical-align: top;
 	height: 23px;
-	width: 239px;
+	width: 230px;
 	font-size: 0.8em;
 }
 #submitSearch {
@@ -446,7 +446,8 @@ div.articleRightInner {
 	background-position: center center;
 	background-repeat: no-repeat;
 	height: 23px;
-	width: 23px;
+	width: 28px;
+	border: 1px solid #aaa;
 	cursor: pointer;
 }
 .tabsRight {
