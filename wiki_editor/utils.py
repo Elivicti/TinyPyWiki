@@ -2,6 +2,14 @@ from markdown import markdown
 from bs4 import BeautifulSoup, Tag
 # from django.core.exceptions import ValidationError
 
+from django.utils import timezone
+from datetime import datetime
+
+def make_formatted_time(time: datetime | None = None, fmt: str = "%Y-%m-%d, at %H:%M:%S (%Z)"):
+	if time is None:
+		time = timezone.now()
+	return time.strftime(fmt)
+
 class WikiArticle:
 	def __init__(self, title: str = "", intro: str = "", contents_panel: str = "", article: str = "") -> None:
 		self.title = title
@@ -81,3 +89,15 @@ def parse_markdown(markdown_content: str, features: str = "html.parser"):
 		wiki.article += str(tag)
 
 	return wiki
+
+def find_in_markdown(hint: str, markdown_content: str, features: str = "html.parser" ):
+	html = BeautifulSoup(markdown(markdown_content), features=features)
+	if hint not in html.get_text():
+		return None
+	first_p = html.find("p")
+	intro = first_p.get_text()
+	if len(intro) >= 30:
+		intro = intro[:30] + " ..."
+	return intro
+	
+	
