@@ -45,15 +45,17 @@ def edit_article(request, article_title: str):
         try:
             articles = WikiArticleEditLog.objects.filter(article_id=article.id).order_by("-edit_time")
             article_content = articles[0].content
+            edit_time = articles[0].edit_time
         except:
             article_content = "# %s" % article_title
+            edit_time = None
         editor_form = WikiEditorForm(initial={"editor": request.user, "article_id": article.id})
 
         return render(request, "editor.html", {
             "var_title": "Edit: %s" % article_title,
             "tab_sections": get_section_tab(request, article_title, "edit"),
             "article_content": article_content,
-            "var_last_edit_time": make_formatted_time(articles[0].edit_time),
+            "var_last_edit_time": make_formatted_time(edit_time),
             "form" : editor_form
         })
 
@@ -136,7 +138,7 @@ def search_article(request):
     
     return render(request, "search.html", {
         "var_title": "Search",
-        
+        "new_page": key_word,
         "var_last_edit_time": make_formatted_time(),
         "tab_name_alt": "Search",
         "results": results
