@@ -41,7 +41,7 @@
 			<div class="mainsection">
 				<div class="headerLinks">
 					{% if user.is_authenticated %}
-					<span class="user">{{ user.username }}</span>
+					<span class="user"><a href="/user/{{user.id}}/">{{ user.username }}</a></span>
 					<a href={% url "user_system:user_logout" %}>Log out</a>
 					{% else %}
 					<span class="user">Not logged in</span>

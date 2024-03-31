@@ -3,6 +3,7 @@ from django.utils.safestring import SafeText
 from . import forms
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 
 # Create your views here.
@@ -56,3 +57,18 @@ def register(request):
 		"form" : form,
 		"correct_error_tooltip": SafeText("<p class=\"django-form-8\">Please correct the errors below.</p>")
 	})	# contains error message
+
+@login_required(login_url="/user/login/")
+def user_profile(request, id: int):
+	print(request.user.id == id)
+
+	try:
+		usr = User.objects.filter(id=id)[0]
+
+		return render(request, "base.html", {
+			"var_title" : usr
+		})
+	except:
+		return render(request, "base.html", {
+			"var_title" : "Not Found"
+		})
